@@ -13,23 +13,25 @@ class Branch
 	end
 
 	# *** GET ***
+
 	#==getAll
-	# Get all the branches
-	#Returns an array of hashes. Each hash is a branch.
+		# Gets all branches
+		# Returns an array of Hashes with the branch data
+
 	def self.getAll
 		url = "#{self.urlWithEntity}?key=#{self.apiKey}"
 		resp = Net::HTTP.get_response(URI.parse(url))
 		data = JSON.parse(resp.body)
 	end
-	
+		
 	#==getOne
-	#Get a branch by it's id
-	#Parameters: BranchId
-	#Returns a hash with the specified branch.
+		# Gets one branch for a given ID
+		#= Parameters: AtmId
+		# Returns a hash with the ATM data
+
 	def self.getOne(id)
 		url = "#{self.urlWithEntity}/#{id}?key=#{self.apiKey}"
 		resp = Net::HTTP.get_response(URI.parse(url))
-		data = JSON.parse(resp.body)
-		
+		data = JSON.parse(resp.body)	
 	end
 end

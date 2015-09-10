@@ -3,17 +3,21 @@ require 'capital_one'
 describe Customer do
 
 	before(:all) do
-  	$customerPost = Hash.new
-  	$customerPost["address"] = Hash.new
-  	$customerPost["address"]["street_number"] = "8020"
-  	$customerPost["address"]["street_name"] = "Towers crescent dr"
-  	$customerPost["address"]["city"] = "Tysons Corner"
-  	$customerPost["address"]["state"] = "Virginia"
-  	$customerPost["address"]["zip"] = "22102"
+	  	$customerPost = Hash.new
+	  	$customerPost["address"] = Hash.new
+	  	$customerPost["address"]["street_number"] = "8020"
+	  	$customerPost["address"]["street_name"] = "Towers crescent dr"
+	  	$customerPost["address"]["city"] = "Tysons Corner"
+	  	$customerPost["address"]["state"] = "Virginia"
+	  	$customerPost["address"]["zip"] = "22102"
+
+	  	$customerPut = Hash.new
+	  	$customerPut["address"] = Hash.new
+	  	$customerPut["address"]["street_name"] = "New test street"
 	end
 
 	before(:each) do
-		Config.apiKey = "3eab5d0a550c080eab8b72ccbcbde8f8"
+		Config.apiKey = "ff1fbfb0f1bfaefb769e25299805ddf1"
 	end
 
 	describe 'Method' do
@@ -50,7 +54,6 @@ describe Customer do
 				customer = Customer.getOne(putCustID)
 				expect(customer.class).to be(Hash)
 				expect(customer).to include("_id")
-				expect(customer).to include("account_ids")
 				expect(customer).to include("first_name")
 			end
 		end
@@ -61,17 +64,27 @@ describe Customer do
 				customer = Customer.getOneByAccountId(accountId)
 				expect(customer.class).to be(Hash)
 				expect(customer).to include("_id")
-				expect(customer).to include("account_ids")
 				expect(customer).to include("first_name")
-				end
+			end
 		end
 	end 
+
+	describe 'POST' do
+		it 'should create a new customer' do
+			VCR.use_cassette 'customer/newCustomer' do
+				response = Customer.createCustomer($customerPost)
+				expect(response.class).to be(Hash)
+				expect(response).to include("message")
+				expect(response).to include("code")
+			end
+		end
+	end
 
 	describe 'PUT' do
 		it 'Update customer information' do
 			VCR.use_cassette 'customer/updateCustomer' do
 				putCustID = Customer.getAll[0]["_id"]
-				response = Customer.updateCustomer(putCustID, $customerPost)
+				response = Customer.updateCustomer(putCustID, $customerPut)
 				expect(response.class).to be(Hash)
 				expect(response).to include("message")
 				expect(response).to include("code")

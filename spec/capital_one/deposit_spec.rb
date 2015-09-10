@@ -7,10 +7,13 @@ describe Deposit do
       $depositPost["medium"] = "balance"
       $depositPost["amount"] = 100
       $depositPost["description"] = "TEST DEPOSIT"
+
+      $depositPut = Hash.new
+      $depositPut["description"] = "Updated test desc"
   end
 
   before(:each) do
-    Config.apiKey = "3eab5d0a550c080eab8b72ccbcbde8f8"
+    Config.apiKey = "ff1fbfb0f1bfaefb769e25299805ddf1"
   end
 
   describe 'Method' do
@@ -28,7 +31,7 @@ describe Deposit do
     end
 
     describe 'GET' do
-      it 'Deposit for an account' do
+      it 'should get all deposits by account id' do
         VCR.use_cassette 'deposit/getDepositByAcctId' do
           accID = Account.getAll[0]["_id"]
           deposit = Deposit.getAllByAccountId(accID)
@@ -37,20 +40,39 @@ describe Deposit do
         end
       end
 
-      it 'Specific deposit for an account AND POST for deposit' do
-        VCR.use_cassette 'deposit/getSpecificDeposit' do
+      it 'should get one deposit' do
+        VCR.use_cassette 'deposit/deposit' do
           accID = Account.getAll[0]["_id"]
+          depositId = Deposit.getAllByAccountId(accID)[0]["_id"]
+          deposit = Deposit.getOne(depositId)
+          expect(deposit.class).to eq(Hash)
+          expect(deposit).to include("_id")
+          expect(deposit).to include("type")
+        end
+      end
+    end
 
+    describe 'POST' do
+      it 'should create a new deposit' do
+        VCR.use_cassette 'deposit/createDeposit' do
+          accID = Account.getAll[0]["_id"]
           deposit = Deposit.createDeposit(accID, $depositPost)
-
           expect(deposit.class).to eq(Hash)
+          expect(deposit).to include("message")
+          expect(deposit).to include("code")
+        end
+      end
+    end
 
-          depositID = Deposit.getAllByAccountId(accID)[0]["_id"]
-
-          deposit = Deposit.getOneByAccountIdDepositId(accID, depositID)
-          $globalTransID = deposit["_id"]
-          expect(deposit.class).to eq(Hash)
-          expect(deposit.length).to be > 0
+    describe 'PUT' do
+      it 'should update an existing deposit' do
+        VCR.use_cassette 'deposit/updateDeposit' do
+          accountID = Account.getAll[0]["_id"]
+          depositID = Deposit.getAllByAccountId(accountID)[0]["_id"]
+          response = Deposit.updateDeposit(depositID, $depositPut)
+          expect(response.class).to be(Hash)
+          expect(response).to include("message")
+          expect(response).to include("code")
         end
       end
     end
@@ -59,15 +81,10 @@ describe Deposit do
       it 'Deposit for an account' do
         VCR.use_cassette 'deposit/deleteDepositByAcctId' do
           accID = Account.getAll[0]["_id"]
-
           deposit = Deposit.createDeposit(accID, $depositPost)
-
           expect(deposit.class).to eq(Hash)
-
-          depositID = Deposit.getAllByAccountId(accID)[0]["_id"]
-
-          deposit = Deposit.deleteDeposit(accID, depositID)
-
+          depositID = Deposit.getAllByAccountId(accID).last["_id"]
+          deposit = Deposit.deleteDeposit(depositID)
           expect(deposit.class).to be(Net::HTTPNoContent)
           expect(deposit.code).to eq("204")         
         end

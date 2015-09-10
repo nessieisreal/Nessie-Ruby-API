@@ -15,10 +15,10 @@ class Deposit
 
   # *** GET ***
   #==getAllByAccountId
-  #Get all deposits for a specific account
-  #Returns an array of hashes.
-  #Parameters: AccountID
-  #Returns an array of hashes containing the deposits for that account.
+    # Get all deposits for a specific account
+    #= Parameters: AccountID
+    # Returns an array of hashes containing the deposits for that account.
+
   def self.getAllByAccountId(accID)
     url = "#{self.urlWithEntity}/#{accID}/deposits?key=#{self.apiKey}"
     resp = Net::HTTP.get_response(URI.parse(url))
@@ -26,13 +26,13 @@ class Deposit
     return data
   end
 
-  #==getOneByAccountIdDepositId
-  # Get a specific deposit from a specific account.
-  #Parameters: AccountID, DepositID
-  # Returns a hash with the specified deposit
-  
-  def self.getOneByAccountIdDepositId(accID, depositID)
-    url = "#{self.urlWithEntity}/#{accID}/deposits/#{depositID}?key=#{self.apiKey}"
+
+  #==getOne
+    # Returns a deposit for a given ID
+    #= Parameters: DepositId
+    # Returns a hash with the deposit data
+  def self.getOne(id)
+    url = "#{self.url}/deposits/#{id}?key=#{self.apiKey}"
     resp = Net::HTTP.get_response(URI.parse(url))
     data = JSON.parse(resp.body)
   end
@@ -40,11 +40,19 @@ class Deposit
 
   # *** POST ***
 
-  # Create a new deposit into an account
   #==createDeposit
-  #Creates a new deposit.
-  #Parameters: toAccountId, hashWithDepositData
-  #Returns http response code. 
+    # Creates a new deposit.
+    # Parameters: toAccountId, DepositHash
+    # DepositHash is formatted as follows: 
+    # {
+    #   "medium": "balance",
+    #   "transaction_date": "string",
+    #   "status": "pending",
+    #   "amount": 0,
+    #   "description": "string"
+    # }
+    # Returns http response code. 
+
   def self.createDeposit(toAcc, deposit)
     depositToCreate = deposit.to_json
     url = "#{self.urlWithEntity}/#{toAcc}/deposits?key=#{self.apiKey}"
@@ -57,17 +65,42 @@ class Deposit
   end
 
 
+  # *** PUT ***
+
+  #==updateDeposit
+    # Updates an existing deposit
+    #= Parameters: DepositId, DepositHash
+    # DepositHash is formatted as follows: 
+    # {
+    #   "medium": "balance",
+    #   "transaction_date": "string",
+    #   "status": "pending",
+    #   "amount": 0,
+    #   "description": "string"
+    # }
+    # Returns http response code
+
+  def self.updateDeposit(id, deposit)
+    depositToUpdate = deposit.to_json
+    url = "#{self.url}/deposits/#{id}?key=#{self.apiKey}"
+    uri = URI.parse(url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    key = "?key=#{self.apiKey}"
+    request = Net::HTTP::Put.new(uri.path+key, initheader = {'Content-Type' =>'application/json'})
+    request.body = depositToUpdate
+    response = http.request(request)
+    return JSON.parse(response.body)
+  end
+
   # *** DELETE ***
 
   #==deleteDeposit
-  #Deletes a specified deposit from a specified account.
-  #Parameters: accountID, depositID
-  #Returns http response code.
-  #=Note:
-  #This does not actually delete the deposit from the database, it only sets it's
-  #status to 'cancelled'
-  def self.deleteDeposit(accID, depositID)
-    url = "#{self.urlWithEntity}/#{accID}/deposits/#{depositID}?key=#{self.apiKey}"
+    # Deletes an existing deposit
+    #= Parameters: DepositId
+    # Returns http response code
+
+  def self.deleteDeposit(id)
+    url = "#{self.url}/deposits/#{id}?key=#{self.apiKey}"
     uri = URI.parse(url)
     http = Net::HTTP.new(uri.host, uri.port)
     key="?key=#{self.apiKey}"

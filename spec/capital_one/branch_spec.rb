@@ -3,7 +3,7 @@ require 'capital_one'
 describe Branch do
 
   before(:all) do
-    Config.apiKey = "3eab5d0a550c080eab8b72ccbcbde8f8"
+    Config.apiKey = "ff1fbfb0f1bfaefb769e25299805ddf1"
   end
 
   describe 'Method' do

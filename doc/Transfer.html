@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Bill - RDoc Documentation</title>
+<title>class Transfer - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -70,23 +70,19 @@
 
   <ul class="link-list" role="directory">
     
-    <li ><a href="#method-c-accountBaseUrl">::accountBaseUrl</a>
-    
     <li ><a href="#method-c-apiKey">::apiKey</a>
     
-    <li ><a href="#method-c-createBill">::createBill</a>
+    <li ><a href="#method-c-createTransfer">::createTransfer</a>
     
-    <li ><a href="#method-c-customerBaseUrl">::customerBaseUrl</a>
+    <li ><a href="#method-c-deleteTransfer">::deleteTransfer</a>
     
-    <li ><a href="#method-c-deleteBill">::deleteBill</a>
+    <li ><a href="#method-c-getAll">::getAll</a>
     
-    <li ><a href="#method-c-getAllByAccountId">::getAllByAccountId</a>
-    
-    <li ><a href="#method-c-getAllByCustomerId">::getAllByCustomerId</a>
+    <li ><a href="#method-c-getAllByType">::getAllByType</a>
     
     <li ><a href="#method-c-getOne">::getOne</a>
     
-    <li ><a href="#method-c-updateBill">::updateBill</a>
+    <li ><a href="#method-c-updateTransfer">::updateTransfer</a>
     
     <li ><a href="#method-c-url">::url</a>
     
@@ -98,9 +94,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Bill">
-  <h1 id="class-Bill" class="class">
-    class Bill
+<main role="main" aria-labelledby="class-Transfer">
+  <h1 id="class-Transfer" class="class">
+    class Transfer
   </h1>
 
   <section class="description">
@@ -126,39 +122,6 @@
        </header>
 
     
-      <div id="method-c-accountBaseUrl" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">accountBaseUrl</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="accountBaseUrl-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 3</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">accountBaseUrl</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/accounts&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
       <div id="method-c-apiKey" class="method-detail ">
         
         <div class="method-heading">
@@ -178,7 +141,7 @@
 
           
           <div class="method-source-code" id="apiKey-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 19</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">apiKey</span>
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">apiKey</span>
 <span class="ruby-keyword">end</span></pre>
@@ -192,11 +155,11 @@
       </div>
 
     
-      <div id="method-c-createBill" class="method-detail ">
+      <div id="method-c-createTransfer" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">createBill</span><span
-            class="method-args">(accountId, bill)</span>
+          <span class="method-name">createTransfer</span><span
+            class="method-args">(accId, transfer)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -205,32 +168,26 @@
 
         <div class="method-description">
           
-          <h2 id="method-c-createBill-label-createBill">createBill<span><a href="#method-c-createBill-label-createBill">&para;</a> <a href="#top">&uarr;</a></span></h2>
+          <pre>*** POST ***</pre>
 
-<pre>create a new bill on an associated account ID
-Parameters: AccountId, BillJson
-Json is as follows:
-   {
-  &quot;status&quot;: &quot;&quot;,
-  &quot;payee&quot;: &quot;&quot;,
-  &quot;nickname&quot;: &quot;&quot;,
-  &quot;payment_date&quot;: &quot;&quot;,
-  &quot;recurring_date&quot;: 0,
-  &quot;payment_amount&quot;: 0
-}
-Returns http response code.</pre>
+<h2 id="method-c-createTransfer-label-createAccount">createAccount<span><a href="#method-c-createTransfer-label-createAccount">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<pre>Creates a new transfer
+Parameters: AccountID, TransferHash
+Returns the http response code.</pre>
           
           
 
           
-          <div class="method-source-code" id="createBill-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 100</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">createBill</span>(<span class="ruby-identifier">accountId</span>, <span class="ruby-identifier">bill</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.accountBaseUrl}/#{accountId}/bills?key=#{self.apiKey}&quot;</span>
+          <div class="method-source-code" id="createTransfer-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">createTransfer</span>(<span class="ruby-identifier">accId</span>, <span class="ruby-identifier">transfer</span>)
+        <span class="ruby-identifier">transferToCreate</span> = <span class="ruby-identifier">transfer</span>.<span class="ruby-identifier">to_json</span>
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{accId}/transfers?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
         <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
-        <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;application/json&#39;</span>})
-        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">bill</span>.<span class="ruby-identifier">to_json</span>
+        <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">&#39;application/json&#39;</span>})
+        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">transferToCreate</span>
         <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -244,44 +201,11 @@ Returns http response code.</pre>
       </div>
 
     
-      <div id="method-c-customerBaseUrl" class="method-detail ">
+      <div id="method-c-deleteTransfer" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">customerBaseUrl</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="customerBaseUrl-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">customerBaseUrl</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/customers&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-c-deleteBill" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">deleteBill</span><span
-            class="method-args">(billId)</span>
+          <span class="method-name">deleteTransfer</span><span
+            class="method-args">(id)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -292,19 +216,19 @@ Returns http response code.</pre>
           
           <pre>*** DELETE ***</pre>
 
-<h2 id="method-c-deleteBill-label-deleteBill">deleteBill<span><a href="#method-c-deleteBill-label-deleteBill">&para;</a> <a href="#top">&uarr;</a></span></h2>
+<h2 id="method-c-deleteTransfer-label-deleteAccount">deleteAccount<span><a href="#method-c-deleteTransfer-label-deleteAccount">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre>delete a bill by its id
-Parameters: BillId
-Returns http response code</pre>
+<pre>delete a given transfer by TransferId.
+Parameters: TransferId.
+Returns the http response code.</pre>
           
           
 
           
-          <div class="method-source-code" id="deleteBill-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 116</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">deleteBill</span>(<span class="ruby-identifier">billId</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{billId}?key=#{self.apiKey}&quot;</span>
+          <div class="method-source-code" id="deleteTransfer-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">deleteTransfer</span>(<span class="ruby-identifier">id</span>)
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.url}/transfers/#{id}?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
         <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
         <span class="ruby-identifier">key</span>=<span class="ruby-node">&quot;?key=#{self.apiKey}&quot;</span>
@@ -321,11 +245,11 @@ Returns http response code</pre>
       </div>
 
     
-      <div id="method-c-getAllByAccountId" class="method-detail ">
+      <div id="method-c-getAll" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">getAllByAccountId</span><span
-            class="method-args">(accountId)</span>
+          <span class="method-name">getAll</span><span
+            class="method-args">(accId)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -334,21 +258,22 @@ Returns http response code</pre>
 
         <div class="method-description">
           
-          <h2 id="method-c-getAllByAccountId-label-getAllByAccountId">getAllByAccountId<span><a href="#method-c-getAllByAccountId-label-getAllByAccountId">&para;</a> <a href="#top">&uarr;</a></span></h2>
+          <pre>*** GET ***</pre>
 
-<pre>Get all bills for a specific account
-Parameters: accountId
-Returns an array of hashes containing the bills.</pre>
+<h1 id="method-c-getAll-label-getAll">getAll<span><a href="#method-c-getAll-label-getAll">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<pre>Returns an array of hashes getting all the transfers for an account.
+Each index in the array is the hash of an individual transfer.</pre>
           
           
 
           
-          <div class="method-source-code" id="getAllByAccountId-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getAllByAccountId</span>(<span class="ruby-identifier">accountId</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.accountBaseUrl}/#{accountId}/bills?key=#{self.apiKey}&quot;</span>
-        <span class="ruby-identifier">response</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+          <div class="method-source-code" id="getAll-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getAll</span>(<span class="ruby-identifier">accId</span>)
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{accId}/transfers?&amp;key=#{self.apiKey}&quot;</span>
+        <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
+        <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -360,11 +285,11 @@ Returns an array of hashes containing the bills.</pre>
       </div>
 
     
-      <div id="method-c-getAllByCustomerId" class="method-detail ">
+      <div id="method-c-getAllByType" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">getAllByCustomerId</span><span
-            class="method-args">(customerId)</span>
+          <span class="method-name">getAllByType</span><span
+            class="method-args">(accId, type)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -373,21 +298,24 @@ Returns an array of hashes containing the bills.</pre>
 
         <div class="method-description">
           
-          <h2 id="method-c-getAllByCustomerId-label-getAllByCustomerId">getAllByCustomerId<span><a href="#method-c-getAllByCustomerId-label-getAllByCustomerId">&para;</a> <a href="#top">&uarr;</a></span></h2>
+          <h2 id="method-c-getAllByType-label-getAllByType">getAllByType<span><a href="#method-c-getAllByType-label-getAllByType">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre>Get all bills for a specific customer
-Parameters: customerId
-Returns the customer as a hash array.</pre>
+<pre>Gets all transfers of a given type and account.</pre>
+
+<h1 id="method-c-getAllByType-label-Parameters-3A">Parameters:<span><a href="#method-c-getAllByType-label-Parameters-3A">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<pre>Accepts a string of the transfer type. 2 possbilities: payer or payee
+Returns an array of hashes with the transfers.</pre>
           
           
 
           
-          <div class="method-source-code" id="getAllByCustomerId-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 41</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getAllByCustomerId</span>(<span class="ruby-identifier">customerId</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.customerBaseUrl}/#{customerId}/bills?key=#{self.apiKey}&quot;</span>
-        <span class="ruby-identifier">response</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+          <div class="method-source-code" id="getAllByType-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getAllByType</span>(<span class="ruby-identifier">accId</span>, <span class="ruby-identifier">type</span>)
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{accId}/transfers?type=#{type}&amp;key=#{self.apiKey}&quot;</span>
+        <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
+        <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -414,19 +342,22 @@ Returns the customer as a hash array.</pre>
           
           <h2 id="method-c-getOne-label-getOne">getOne<span><a href="#method-c-getOne-label-getOne">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre>Gets one bill for a specific billId
-Parameters: billId
-Returns a hash with the bill data</pre>
+<pre>Returns the transfer specified by its transfer ID.</pre>
+
+<h1 id="method-c-getOne-label-Parameters-3A">Parameters:<span><a href="#method-c-getOne-label-Parameters-3A">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<pre>Accepts a string of the transfer ID. 
+Returns a hash with the transfer info.</pre>
           
           
 
           
           <div class="method-source-code" id="getOne-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 52</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 41</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getOne</span>(<span class="ruby-identifier">id</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{id}?key=#{self.apiKey}&quot;</span>
-        <span class="ruby-identifier">response</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.url}/transfers/#{id}?key=#{self.apiKey}&quot;</span>
+        <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
+        <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -438,11 +369,11 @@ Returns a hash with the bill data</pre>
       </div>
 
     
-      <div id="method-c-updateBill" class="method-detail ">
+      <div id="method-c-updateTransfer" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">updateBill</span><span
-            class="method-args">(billId, bill)</span>
+          <span class="method-name">updateTransfer</span><span
+            class="method-args">(id, transfer)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -451,34 +382,27 @@ Returns a hash with the bill data</pre>
 
         <div class="method-description">
           
-          <h2 id="method-c-updateBill-label-updateBill">updateBill<span><a href="#method-c-updateBill-label-updateBill">&para;</a> <a href="#top">&uarr;</a></span></h2>
+          <pre>*** PUT ***</pre>
 
-<pre>Updates an account&#39;s information by id with given json data. 
-Parameters: BillId, BillJson
-Json format is as follows: 
-   {
-  &quot;status&quot;: &quot;&quot;,
-  &quot;payee&quot;: &quot;&quot;,
-  &quot;nickname&quot;: &quot;&quot;,
-  &quot;payment_date&quot;: &quot;&quot;,
-  &quot;recurring_date&quot;: 0,
-  &quot;payment_amount&quot;: 0
-}
-Returns http response code.</pre>
+<h2 id="method-c-updateTransfer-label-updateAccount">updateAccount<span><a href="#method-c-updateTransfer-label-updateAccount">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<pre>Updates a transfer&#39;s info.
+Parameters: TransferId, TransferHash
+Returns the http response code.</pre>
           
           
 
           
-          <div class="method-source-code" id="updateBill-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 74</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">updateBill</span>(<span class="ruby-identifier">billId</span>, <span class="ruby-identifier">bill</span>)
-        <span class="ruby-identifier">billToUpdate</span> = <span class="ruby-identifier">bill</span>.<span class="ruby-identifier">to_json</span>
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{billId}?key=#{self.apiKey}&quot;</span>
+          <div class="method-source-code" id="updateTransfer-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">updateTransfer</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">transfer</span>)
+        <span class="ruby-identifier">transferToUpdate</span> = <span class="ruby-identifier">transfer</span>.<span class="ruby-identifier">to_json</span>
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.url}/transfers/#{id}?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
         <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
         <span class="ruby-identifier">key</span> = <span class="ruby-node">&quot;?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Put</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span><span class="ruby-operator">+</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">&#39;application/json&#39;</span>})
-        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">billToUpdate</span>
+        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">transferToUpdate</span>
         <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -511,7 +435,7 @@ Returns http response code.</pre>
 
           
           <div class="method-source-code" id="url-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span>
 <span class="ruby-keyword">end</span></pre>
@@ -544,9 +468,9 @@ Returns http response code.</pre>
 
           
           <div class="method-source-code" id="urlWithEntity-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/bill.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/transfer.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">urlWithEntity</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/bills&quot;</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/accounts&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
