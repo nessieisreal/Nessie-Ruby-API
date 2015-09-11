@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Customer - RDoc Documentation</title>
+<title>class Merchant - RDoc Documentation</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -72,19 +72,17 @@
     
     <li ><a href="#method-c-apiKey">::apiKey</a>
     
-    <li ><a href="#method-c-createCustomer">::createCustomer</a>
+    <li ><a href="#method-c-createMerchant">::createMerchant</a>
     
     <li ><a href="#method-c-getAll">::getAll</a>
     
+    <li ><a href="#method-c-getAllByLocation">::getAllByLocation</a>
+    
     <li ><a href="#method-c-getOne">::getOne</a>
     
-    <li ><a href="#method-c-getOneByAccountId">::getOneByAccountId</a>
-    
-    <li ><a href="#method-c-updateCustomer">::updateCustomer</a>
+    <li ><a href="#method-c-updateMerchant">::updateMerchant</a>
     
     <li ><a href="#method-c-url">::url</a>
-    
-    <li ><a href="#method-c-urlWithAcctEntity">::urlWithAcctEntity</a>
     
     <li ><a href="#method-c-urlWithEntity">::urlWithEntity</a>
     
@@ -94,9 +92,9 @@
   </div>
 </nav>
 
-<main role="main" aria-labelledby="class-Customer">
-  <h1 id="class-Customer" class="class">
-    class Customer
+<main role="main" aria-labelledby="class-Merchant">
+  <h1 id="class-Merchant" class="class">
+    class Merchant
   </h1>
 
   <section class="description">
@@ -141,7 +139,7 @@
 
           
           <div class="method-source-code" id="apiKey-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 15</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 11</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">apiKey</span>
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">apiKey</span>
 <span class="ruby-keyword">end</span></pre>
@@ -155,11 +153,11 @@
       </div>
 
     
-      <div id="method-c-createCustomer" class="method-detail ">
+      <div id="method-c-createMerchant" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">createCustomer</span><span
-            class="method-args">(customer)</span>
+          <span class="method-name">createMerchant</span><span
+            class="method-args">(merchant)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -168,40 +166,44 @@
 
         <div class="method-description">
           
-          <h2 id="method-c-createCustomer-label-createCustomer">createCustomer<span><a href="#method-c-createCustomer-label-createCustomer">&para;</a> <a href="#top">&uarr;</a></span></h2>
+          <h2 id="method-c-createMerchant-label-createMerchant">createMerchant<span><a href="#method-c-createMerchant-label-createMerchant">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre class="ruby"><span class="ruby-constant">Creates</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">new</span> <span class="ruby-identifier">customer</span> <span class="ruby-identifier">with</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">given</span> <span class="ruby-identifier">json</span> <span class="ruby-identifier">data</span>
+<pre class="ruby"><span class="ruby-constant">Creates</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">new</span> <span class="ruby-constant">Merchant</span>
 </pre>
 
-<h1 id="method-c-createCustomer-label-Parameters-3A+CustomerHash">Parameters: CustomerHash<span><a href="#method-c-createCustomer-label-Parameters-3A+CustomerHash">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<h1 id="method-c-createMerchant-label-Parameters-3A+MerchantHash">Parameters: MerchantHash<span><a href="#method-c-createMerchant-label-Parameters-3A+MerchantHash">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<pre>JSON is as follows: 
-{
-&quot;first_name&quot;: &quot;string&quot;,
-&quot;last_name&quot;: &quot;string&quot;,
-&quot;address&quot;: {
-     &quot;street_number&quot;: &quot;string&quot;,
-    &quot;street_name&quot;: &quot;&quot;,
-    &quot;city&quot;: &quot;&quot;,
-    &quot;state&quot;: &quot;&quot;,
-    &quot;zip&quot;: &quot;&quot;              
-  }
-}
+<pre>MerchantHash format is as follows: 
+    {
+            &quot;name&quot;: &quot;string&quot;,
+            &quot;address&quot;: {
+                    &quot;street_number&quot;: &quot;string&quot;,
+                    &quot;street_name&quot;: &quot;string&quot;,
+                    &quot;city&quot;: &quot;string&quot;,
+                    &quot;state&quot;: &quot;string&quot;,
+                    &quot;zip&quot;: &quot;string&quot;,
+            },
+            &quot;geocode&quot;: {
+                    &quot;lat&quot;: 0,
+                    &quot;lng&quot;: 0,
+            }
+    }
 Returns http response code</pre>
           
           
 
           
-          <div class="method-source-code" id="createCustomer-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 73</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">createCustomer</span>(<span class="ruby-identifier">customer</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}?key=#{self.apiKey}&quot;</span>
+          <div class="method-source-code" id="createMerchant-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">createMerchant</span>(<span class="ruby-identifier">merchant</span>)
+        <span class="ruby-identifier">merchantToCreate</span> = <span class="ruby-identifier">merchant</span>.<span class="ruby-identifier">to_json</span>
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
-        <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
-        <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">&#39;application/json&#39;</span>})
-        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">customer</span>.<span class="ruby-identifier">to_json</span>
-        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+    <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
+    <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Post</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;application/json&#39;</span>})
+    <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">merchantToCreate</span>
+    <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
+    <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -228,14 +230,14 @@ Returns http response code</pre>
           
           <h2 id="method-c-getAll-label-getAll">getAll<span><a href="#method-c-getAll-label-getAll">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre>Gets all customers the API key has acccess to.
-Returns an array of hashes.</pre>
+<pre class="ruby"><span class="ruby-constant">Returns</span> <span class="ruby-identifier">all</span> <span class="ruby-constant">Merchants</span> <span class="ruby-identifier">as</span> <span class="ruby-identifier">an</span> <span class="ruby-identifier">array</span> <span class="ruby-identifier">of</span> <span class="ruby-identifier">hashes</span>
+</pre>
           
           
 
           
           <div class="method-source-code" id="getAll-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 19</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getAll</span>
         <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
@@ -252,11 +254,55 @@ Returns an array of hashes.</pre>
       </div>
 
     
+      <div id="method-c-getAllByLocation" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">getAllByLocation</span><span
+            class="method-args">(lat, lng, rad)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <h2 id="method-c-getAllByLocation-label-getAllByLocation">getAllByLocation<span><a href="#method-c-getAllByLocation-label-getAllByLocation">&para;</a> <a href="#top">&uarr;</a></span></h2>
+
+<pre class="ruby"><span class="ruby-constant">Returns</span> <span class="ruby-identifier">all</span> <span class="ruby-constant">Merchants</span> <span class="ruby-identifier">within</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">given</span> <span class="ruby-identifier">location</span> <span class="ruby-identifier">range</span>
+</pre>
+
+<h1 id="method-c-getAllByLocation-label-Parameters-3A+Latitude-2C+Longitude-2C+Radius">Parameters: Latitude, Longitude, Radius<span><a href="#method-c-getAllByLocation-label-Parameters-3A+Latitude-2C+Longitude-2C+Radius">&para;</a> <a href="#top">&uarr;</a></span></h1>
+
+<pre>Accepts lat, lng, and rad as floats
+Returns an array of hashes</pre>
+          
+          
+
+          
+          <div class="method-source-code" id="getAllByLocation-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getAllByLocation</span>(<span class="ruby-identifier">lat</span>, <span class="ruby-identifier">lng</span>, <span class="ruby-identifier">rad</span>)
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}?lat=#{lat}&amp;lng=#{lng}&amp;rad=#{rad}&amp;key=#{self.apiKey}&quot;</span>
+        <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
+        <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
+<span class="ruby-keyword">return</span> <span class="ruby-identifier">data</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
       <div id="method-c-getOne" class="method-detail ">
         
         <div class="method-heading">
           <span class="method-name">getOne</span><span
-            class="method-args">(custId)</span>
+            class="method-args">(merchId)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -267,22 +313,23 @@ Returns an array of hashes.</pre>
           
           <h2 id="method-c-getOne-label-getOne">getOne<span><a href="#method-c-getOne-label-getOne">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre>Gets the specified customer&#39;s information.</pre>
+<pre>Returns a single merchant for a given ID</pre>
 
-<h1 id="method-c-getOne-label-Parameters-3A+CustomerId">Parameters: CustomerId<span><a href="#method-c-getOne-label-Parameters-3A+CustomerId">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<h1 id="method-c-getOne-label-Parameters-3A+MerchantId">Parameters: MerchantId<span><a href="#method-c-getOne-label-Parameters-3A+MerchantId">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<pre class="ruby"><span class="ruby-constant">Returns</span> <span class="ruby-identifier">a</span> <span class="ruby-constant">Hash</span> <span class="ruby-identifier">with</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">customer</span> <span class="ruby-identifier">data</span>
+<pre class="ruby"><span class="ruby-constant">Returns</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">hash</span>
 </pre>
           
           
 
           
           <div class="method-source-code" id="getOne-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getOne</span>(<span class="ruby-identifier">custId</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{custId}?key=#{self.apiKey}&quot;</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getOne</span>(<span class="ruby-identifier">merchId</span>)
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{merchId}?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
         <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
+<span class="ruby-keyword">return</span> <span class="ruby-identifier">data</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -294,11 +341,11 @@ Returns an array of hashes.</pre>
       </div>
 
     
-      <div id="method-c-getOneByAccountId" class="method-detail ">
+      <div id="method-c-updateMerchant" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">getOneByAccountId</span><span
-            class="method-args">(accID)</span>
+          <span class="method-name">updateMerchant</span><span
+            class="method-args">(merchId, merchant)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -307,78 +354,43 @@ Returns an array of hashes.</pre>
 
         <div class="method-description">
           
-          <h2 id="method-c-getOneByAccountId-label-getOneByAccountId">getOneByAccountId<span><a href="#method-c-getOneByAccountId-label-getOneByAccountId">&para;</a> <a href="#top">&uarr;</a></span></h2>
+          <h2 id="method-c-updateMerchant-label-updateMerchant">updateMerchant<span><a href="#method-c-updateMerchant-label-updateMerchant">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<pre>Get the customer for the given account.</pre>
+<pre class="ruby"><span class="ruby-constant">Updates</span> <span class="ruby-identifier">an</span> <span class="ruby-identifier">existing</span> <span class="ruby-constant">Merchant</span>
+</pre>
 
-<h1 id="method-c-getOneByAccountId-label-Parameters-3A+AccountId">Parameters: AccountId<span><a href="#method-c-getOneByAccountId-label-Parameters-3A+AccountId">&para;</a> <a href="#top">&uarr;</a></span></h1>
+<h1 id="method-c-updateMerchant-label-Parameters-3A+MerchantId-2C+MerchantHash">Parameters: MerchantId, MerchantHash<span><a href="#method-c-updateMerchant-label-Parameters-3A+MerchantId-2C+MerchantHash">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<pre>Returns a hash with the specified customer data.</pre>
+<pre>MerchantHash format is as follows: 
+    {
+            &quot;name&quot;: &quot;string&quot;,
+            &quot;address&quot;: {
+                    &quot;street_number&quot;: &quot;string&quot;,
+                    &quot;street_name&quot;: &quot;string&quot;,
+                    &quot;city&quot;: &quot;string&quot;,
+                    &quot;state&quot;: &quot;string&quot;,
+                    &quot;zip&quot;: &quot;string&quot;,
+            },
+            &quot;geocode&quot;: {
+                    &quot;lat&quot;: 0,
+                    &quot;lng&quot;: 0,
+            }
+    }
+Returns http response code</pre>
           
           
 
           
-          <div class="method-source-code" id="getOneByAccountId-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 48</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">getOneByAccountId</span>(<span class="ruby-identifier">accID</span>)
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithAcctEntity}/#{accID}/customer?key=#{self.apiKey}&quot;</span>
-        <span class="ruby-identifier">resp</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">get_response</span>(<span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>))
-        <span class="ruby-identifier">data</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-c-updateCustomer" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">updateCustomer</span><span
-            class="method-args">(custID, customer)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <h2 id="method-c-updateCustomer-label-updateCustomer">updateCustomer<span><a href="#method-c-updateCustomer-label-updateCustomer">&para;</a> <a href="#top">&uarr;</a></span></h2>
-
-<pre>Updates a customer by id with given json data.</pre>
-
-<h1 id="method-c-updateCustomer-label-Parameters-3A+CustomerId-2C+CustomerHash.">Parameters: CustomerId, CustomerHash.<span><a href="#method-c-updateCustomer-label-Parameters-3A+CustomerId-2C+CustomerHash.">&para;</a> <a href="#top">&uarr;</a></span></h1>
-
-<pre>Json is as follows: 
-   {
-  &quot;address&quot;: {
-    &quot;street_number&quot;: &quot;&quot;,
-    &quot;street_name&quot;: &quot;&quot;,
-    &quot;city&quot;: &quot;&quot;,
-    &quot;state&quot;: &quot;&quot;,
-    &quot;zip&quot;: &quot;&quot;
-  }
-}
-Returns http response code.</pre>
-          
-          
-
-          
-          <div class="method-source-code" id="updateCustomer-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 101</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">updateCustomer</span>(<span class="ruby-identifier">custID</span>, <span class="ruby-identifier">customer</span>)
-        <span class="ruby-identifier">customerToUpdate</span> = <span class="ruby-identifier">customer</span>.<span class="ruby-identifier">to_json</span>
-        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{custID}?key=#{self.apiKey}&quot;</span>
+          <div class="method-source-code" id="updateMerchant-source">
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">updateMerchant</span>(<span class="ruby-identifier">merchId</span>, <span class="ruby-identifier">merchant</span>)
+        <span class="ruby-identifier">merchantToUpdate</span> = <span class="ruby-identifier">merchant</span>.<span class="ruby-identifier">to_json</span>
+        <span class="ruby-identifier">url</span> = <span class="ruby-node">&quot;#{self.urlWithEntity}/#{merchId}?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
         <span class="ruby-identifier">http</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>, <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">port</span>)
         <span class="ruby-identifier">key</span> = <span class="ruby-node">&quot;?key=#{self.apiKey}&quot;</span>
         <span class="ruby-identifier">request</span> = <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTP</span><span class="ruby-operator">::</span><span class="ruby-constant">Put</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span><span class="ruby-operator">+</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">initheader</span> = {<span class="ruby-string">&#39;Content-Type&#39;</span> =<span class="ruby-operator">&gt;</span><span class="ruby-string">&#39;application/json&#39;</span>})
-        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">customerToUpdate</span>
+        <span class="ruby-identifier">request</span>.<span class="ruby-identifier">body</span> = <span class="ruby-identifier">merchantToUpdate</span>
         <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">request</span>(<span class="ruby-identifier">request</span>)
         <span class="ruby-keyword">return</span> <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -411,42 +423,9 @@ Returns http response code.</pre>
 
           
           <div class="method-source-code" id="url-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 11</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 7</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">url</span>
         <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span>
-<span class="ruby-keyword">end</span></pre>
-          </div>
-          
-        </div>
-
-        
-
-        
-      </div>
-
-    
-      <div id="method-c-urlWithAcctEntity" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">urlWithAcctEntity</span><span
-            class="method-args">()</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-          
-
-          
-          <div class="method-source-code" id="urlWithAcctEntity-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">urlWithAcctEntity</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/accounts&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -477,9 +456,9 @@ Returns http response code.</pre>
 
           
           <div class="method-source-code" id="urlWithEntity-source">
-            <pre><span class="ruby-comment"># File lib/capital_one/customer.rb, line 3</span>
+            <pre><span class="ruby-comment"># File lib/capital_one/merchant.rb, line 3</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">urlWithEntity</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/customers&quot;</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">baseUrl</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/merchants&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

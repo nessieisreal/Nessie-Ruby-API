@@ -7,10 +7,13 @@ describe Withdrawal do
       $withdrawalPost["medium"] = "balance"
       $withdrawalPost["amount"] = 100
       $withdrawalPost["description"] = "TEST WITHDRAWAL"
+
+      $withdrawalPut = Hash.new
+      $withdrawalPut["description"] = "TEST UPDATE"
   end
 
   before(:each) do
-    Config.apiKey = "3eab5d0a550c080eab8b72ccbcbde8f8"
+    Config.apiKey = "ff1fbfb0f1bfaefb769e25299805ddf1"
   end
 
   describe 'Method' do
@@ -40,17 +43,38 @@ describe Withdrawal do
       it 'Specific withdrawal for an account AND POST for withdrawal' do
         VCR.use_cassette 'withdrawal/getSpecificWithdrawal' do
           accID = Account.getAll[0]["_id"]
-
           withdrawal = Withdrawal.createWithdrawal(accID, $withdrawalPost)
-
           expect(withdrawal.class).to eq(Hash)
-
           withdrawalID = Withdrawal.getAllByAccountId(accID)[0]["_id"]
-
-          withdrawal = Withdrawal.getOneByAccountIdWithdrawalId(accID, withdrawalID)
+          withdrawal = Withdrawal.getOne(withdrawalID)
           $globalTransID = withdrawal["_id"]
           expect(withdrawal.class).to eq(Hash)
           expect(withdrawal.length).to be > 0
+        end
+      end
+    end
+
+    describe 'POST' do
+      it 'should create a new withdrawal' do
+        VCR.use_cassette 'withdrawal/createWithdrawal' do
+          accID = Account.getAll[0]["_id"]
+          withdrawal = Withdrawal.createWithdrawal(accID, $withdrawalPost)
+          expect(withdrawal.class).to eq(Hash)
+          expect(withdrawal).to include("message")
+          expect(withdrawal).to include("code")
+        end
+      end
+    end 
+
+    describe 'PUT' do
+      it 'should update a withdrawal' do 
+        VCR.use_cassette 'withdrawal/updateWithdrawal' do
+          accID = Account.getAll[0]["_id"]
+          withdrawalID = Withdrawal.getAllByAccountId(accID)[0]["_id"]
+          response = Withdrawal.updateWithdrawal(withdrawalID, $withdrawalPut)
+          expect(response.class).to eq(Hash)
+          expect(response).to include("message")
+          expect(response).to include("code")
         end
       end
     end
@@ -59,15 +83,8 @@ describe Withdrawal do
       it 'Withdrawal for an account' do
         VCR.use_cassette 'withdrawal/deleteWithdrawalByAcctId' do
           accID = Account.getAll[0]["_id"]
-
-          withdrawal = Withdrawal.createWithdrawal(accID, $withdrawalPost)
-
-          expect(withdrawal.class).to eq(Hash)
-
-          withdrawalID = Withdrawal.getAllByAccountId(accID)[0]["_id"]
-
-          withdrawal = Withdrawal.deleteWithdrawal(accID, withdrawalID)
-
+          withdrawalID = Withdrawal.getAllByAccountId(accID).last["_id"]
+          withdrawal = Withdrawal.deleteWithdrawal(withdrawalID)
           expect(withdrawal.class).to be(Net::HTTPNoContent)
           expect(withdrawal.code).to eq("204")         
         end

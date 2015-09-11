@@ -5,7 +5,7 @@ require 'capital_one/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "capital_one"
-  spec.version       = '0.2.0'
+  spec.version       = '0.4.1'
   spec.authors       = ["Shane Besong", "Tom Pazamickas"]
   spec.email         = ["sfbesong@gmail.com", "tpazamickas@gmail.com"]
 
@@ -20,7 +20,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = "https://rubygems.org"
+    spec.metadata['allowed_push_host'] = "http://rubygems.org"
   end
 
   spec.add_development_dependency "bundler", "~> 1.9"
